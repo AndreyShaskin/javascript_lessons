@@ -19,10 +19,8 @@ var appData = {
    expenses : {},
    optionalExpenses :  {},
    income :[],
-   savings : true
-};
-
-function chooseEpenses() {
+   savings : true,
+   chooseEpenses: function() {
     for (let i = 0; i < 2; i++) {
         let a = prompt("Введите обязательную статью расходов в этом месяце", '');
         let b = prompt("Во сколько обойдется?", '');
@@ -39,25 +37,23 @@ function chooseEpenses() {
             i--;
         }
     }
-}
-
-chooseEpenses();
-
-appData.moneyPerDay = + (appData.budjet / 30).toFixed(2);
-
-alert("Бюджет на 1 день: " + appData.moneyPerDay);
-
-if(appData.moneyPerDay < 100) {
-    console.log("Денег нет но мы держимся");
-} else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
-    console.log("Выживаем");
-} else if (appData.moneyPerDay > 2000) {
-    console.log("Жить можно");
-} else {
-    console.log("Ты ввел какую-то х..ю!");
-}
-
-function checkSavings() {
+   },
+   detectDayBudjet: function() {
+        appData.moneyPerDay = + (appData.budjet / 30).toFixed(2);
+        alert("Бюджет на 1 день: " + appData.moneyPerDay);
+   },
+   detectLevel: function() {
+        if(appData.moneyPerDay < 100) {
+            console.log("Денег нет но мы держимся");
+        } else if (appData.moneyPerDay >= 100 && appData.moneyPerDay < 2000) {
+            console.log("Выживаем");
+        } else if (appData.moneyPerDay > 2000) {
+            console.log("Жить можно");
+        } else {
+            console.log("Ты ввел какую-то х..ю!");
+        }
+   },
+   checkSavings: function() {
     if (appData.savings == true) {
         let save = +prompt("Какова сумма накоплений?",''),
             percent = +prompt("Под какой процент?",'');
@@ -66,6 +62,25 @@ function checkSavings() {
 
         alert("Доход с депозита: " + appData.monthIncome / 12);
     }
-}
+   },
+   chooseOptExpenses: function() {
+       for (let i = 1; i < 3; i++) {
+           let opt = prompt("Статья необязательных расходов?","");
+           appData.optionalExpenses[i] = opt;
+       }
+   },
+   chooseIncome: function() {
+       let items = prompt("Что принесет дополнительный доход? (Перечислить через ','",'' );
+       appData.income = items.split(', ');
+       appData.income.push(prompt("Может что-то еще?"));
+       appData.income.sort();
+   }
+};
 
-checkSavings();
+
+
+
+
+
+
+
